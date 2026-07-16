@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+	<link rel="stylesheet" href="src\style.css">
     <style>
         body {
             font-family: 'Lexend', sans-serif;
@@ -190,24 +190,6 @@
             }
         });
 		
-	// Logic Back to Top
-const btnBackToTop = document.getElementById("btn-back-to-top");
-
-window.addEventListener("scroll", () => {
-    // Hiển thị nút khi cuộn xuống quá 300px
-    if (window.scrollY > 300) {
-        btnBackToTop.classList.remove("hidden");
-    } else {
-        btnBackToTop.classList.add("hidden");
-    }
-});
-
-btnBackToTop.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Hiệu ứng cuộn mượt mà
-    });
-});
         // 5. RENDERING BỘ LỌC SIDEBAR
         function renderCategories() {
             categoryListContainer.innerHTML = categories.map(cat => {
@@ -503,11 +485,10 @@ btnBackToTop.addEventListener("click", () => {
             });
         }
     </script>
-	<!-- Nút Back to Top -->
-<button id="btn-back-to-top" 
-    class="fixed bottom-6 right-6 hidden bg-emerald-800 text-white p-3 rounded-full shadow-lg hover:bg-emerald-700 transition-all duration-300 z-[99] border-2 border-white"
-    title="Lên đầu trang">
+	
+<button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
+<script src="src\script.js"></script>
 </body>
 </html>
