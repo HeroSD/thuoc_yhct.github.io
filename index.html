@@ -299,16 +299,20 @@
                 filtered = filtered.filter(item => item.catId === currentCategory);
             }
 
-            if (searchQuery.trim() !== "") {
-                const query = searchQuery.toLowerCase();
-                filtered = filtered.filter(item => 
-                    item.name.toLowerCase().includes(query) ||
-                    item.property.toLowerCase().includes(query) ||
-                    item.meridians.toLowerCase().includes(query) ||
-                    item.use.toLowerCase().includes(query) ||
-                    item.group.toLowerCase().includes(query)
-                );
-            }
+         if (searchQuery.trim() !== "") {
+    const query = removeAccents(searchQuery); // Chuẩn hóa từ khóa
+    filtered = filtered.filter(item => 
+        removeAccents(item.name).includes(query) ||
+        removeAccents(item.property).includes(query) ||
+        removeAccents(item.meridians).includes(query) ||
+        removeAccents(item.use).includes(query) ||
+        removeAccents(item.group).includes(query)
+    );
+}
+			// Hàm loại bỏ dấu tiếng Việt
+function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
             counterFiltered.innerText = filtered.length;
 
