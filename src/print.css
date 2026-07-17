@@ -1,0 +1,39 @@
+/* print.css */
+@media print {
+    /* Ẩn các thành phần giao diện không cần thiết khi in */
+    header, 
+    aside, 
+    #search-input, 
+    #btn-view-grid, 
+    #btn-view-flashcard, 
+    #btn-print, 
+    #backToTop, 
+    .fa-volume-high {
+        display: none !important;
+    }
+
+    /* Tối ưu bố cục in */
+    body { 
+        background-color: white !important; 
+        color: black !important; 
+    }
+    
+    main { 
+        width: 100% !important; 
+        max-width: 100% !important; 
+        padding: 0 !important; 
+    }
+
+    #cards-container { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 15px; 
+    }
+
+    /* Định dạng thẻ thuốc cho bản in */
+    .bg-white { 
+        border: 1px solid #ccc !important; 
+        box-shadow: none !important; 
+        break-inside: avoid; /* Tránh ngắt trang giữa thẻ */
+    }
+}
