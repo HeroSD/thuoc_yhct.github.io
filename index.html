@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link rel="stylesheet" href="src/style.css">
+	<!-- Đặt trong thẻ <head> -->
+	<link rel="stylesheet" href="print.css" media="print">
     <style>
         body {
             font-family: 'Lexend', sans-serif;
@@ -49,6 +51,9 @@
             background: #555;
         }
     </style>
+	<button id="btn-print" class="px-4 py-2 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 transition flex items-center gap-2 border border-emerald-500 text-white">
+    <i class="fa-solid fa-print"></i> In danh sách
+</button>
 </head>
 <body class="text-gray-800 min-h-screen flex flex-col relative">
 
@@ -494,5 +499,6 @@ function removeAccents(str) {
     <i class="fa-solid fa-arrow-up"></i>
 </button>
 <script src="src/script.js"></script>
+<script src="src/print_feature.js"></script>
 </body>
 </html>
