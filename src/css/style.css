@@ -1,0 +1,42 @@
+/* CSS cho Ứng dụng Y Học Cổ Truyền */
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: #f4f6f0;
+}
+
+/* Hiệu ứng lật thẻ Flashcard */
+.flashcard-container {
+    perspective: 1000px;
+}
+.flashcard-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+.flashcard-flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
