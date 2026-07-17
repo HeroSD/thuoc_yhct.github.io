@@ -1,21 +1,57 @@
-/* print.css */
+
+/* print.css - Cấu hình in chuyên nghiệp */
 @media print {
-    /* Ẩn các thành phần không cần thiết */
-    header, aside, #search-input, #btn-view-grid, #btn-view-flashcard, #btn-print, #backToTop, .fa-volume-high {
+    /* Khổ giấy và lề */
+    @page {
+        size: A4;
+        margin: 20mm;
+    }
+
+    /* Ẩn các phần tương tác không cần thiết */
+    header, aside, #search-input, #btn-view-grid, #btn-view-flashcard, 
+    #btn-print, #backToTop, .fa-volume-high {
         display: none !important;
     }
 
-    /* Hiển thị tiêu đề nhóm đang chọn để người in biết họ đang in gì */
-    #active-category-name {
-        display: block !important;
-        font-size: 20px;
-        margin-bottom: 20px;
-        text-align: center;
+    /* Cấu trúc chính */
+    body { 
+        background-color: white !important; 
+        color: black !important;
+        font-size: 12pt;
     }
 
-    /* Đảm bảo danh sách hiển thị đúng */
+    /* Tiêu đề nhóm thuốc */
+    #active-category-name {
+        display: block !important;
+        text-align: center;
+        font-size: 18pt;
+        font-weight: bold;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #333;
+        color: #000 !important;
+    }
+
+    /* Lưới thẻ thuốc cân bằng */
     #cards-container { 
         display: grid !important; 
-        grid-template-columns: repeat(3, 1fr) !important; 
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 cột cho cân bằng trên A4 */
+        gap: 20px !important;
+        page-break-inside: auto;
+    }
+
+    /* Style cho từng thẻ thuốc */
+    .bg-white { 
+        border: 1px solid #ddd !important; 
+        box-shadow: none !important; 
+        padding: 15px !important;
+        break-inside: avoid; /* Ngăn thẻ bị cắt giữa trang */
+        border-radius: 8px !important;
+    }
+
+    /* Xử lý hình ảnh */
+    img {
+        max-height: 120px !important;
+        object-fit: cover !important;
     }
 }
