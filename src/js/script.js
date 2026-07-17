@@ -22,30 +22,15 @@ const zoomedImage = document.getElementById("zoomed-image");
 const zoomTitle = document.getElementById("zoom-title");
 
 // 4. KHỞI CHẠY ỨNG DỤNG
-let herbsData = [];
-let categories = [];
-
-window.addEventListener("DOMContentLoaded", async () => {
-    try {
-        // Gọi file data.json
-        const response = await fetch('data.json');
-        if (!response.ok) throw new Error("Không thể tải file data.json");
-        
-        const jsonData = await response.json();
-        
-        // Gán dữ liệu vào biến toàn cục
-        herbsData = jsonData.herbs;
-        categories = jsonData.categories;
-
-        // Khởi chạy các hàm hiển thị
+window.addEventListener("DOMContentLoaded", () => {
+    // Kiểm tra xem dữ liệu từ file data.js đã được tải thành công chưa
+    if (typeof herbsData !== "undefined" && typeof categories !== "undefined") {
         renderCategories();
         renderCards();
         setupEventListeners();
         counterTotal.innerText = herbsData.length;
-        
-    } catch (error) {
-        console.error("Lỗi:", error);
-        alert("Không thể tải dữ liệu. Vui lòng kiểm tra file data.json hoặc dùng Live Server.");
+    } else {
+        alert("Không thể tải tệp dữ liệu 'data.js'. Bạn hãy kiểm tra lại file data.js đã lưu đúng thư mục hay chưa nhé!");
     }
 });
 
