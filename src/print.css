@@ -1,13 +1,13 @@
 
-/* print.css - Cấu hình in chuyên nghiệp */
+/* print.css - Cấu hình in chuyên nghiệp và phân trang */
 @media print {
     /* Khổ giấy và lề */
     @page {
         size: A4;
-        margin: 20mm;
+        margin: 15mm;
     }
 
-    /* Ẩn các phần tương tác không cần thiết */
+    /* Ẩn các thành phần không cần in */
     header, aside, #search-input, #btn-view-grid, #btn-view-flashcard, 
     #btn-print, #backToTop, .fa-volume-high {
         display: none !important;
@@ -17,41 +17,53 @@
     body { 
         background-color: white !important; 
         color: black !important;
-        font-size: 12pt;
+        font-size: 11pt;
+        line-height: 1.4;
     }
 
     /* Tiêu đề nhóm thuốc */
     #active-category-name {
         display: block !important;
         text-align: center;
-        font-size: 18pt;
+        font-size: 16pt;
         font-weight: bold;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 2px solid #333;
+        border-bottom: 2px solid #000;
         color: #000 !important;
     }
 
-    /* Lưới thẻ thuốc cân bằng */
+    /* Lưới thẻ thuốc - Tối ưu hóa phân trang */
     #cards-container { 
-        display: grid !important; 
-        grid-template-columns: repeat(2, 1fr) !important; /* 2 cột cho cân bằng trên A4 */
-        gap: 20px !important;
-        page-break-inside: auto;
+        display: block !important; /* Thay grid thành block để luồng in tự nhiên */
     }
 
-    /* Style cho từng thẻ thuốc */
+    /* Style từng thẻ thuốc: ép kích thước để dàn trang hợp lý */
     .bg-white { 
-        border: 1px solid #ddd !important; 
+        border: 1px solid #ccc !important; 
         box-shadow: none !important; 
-        padding: 15px !important;
-        break-inside: avoid; /* Ngăn thẻ bị cắt giữa trang */
-        border-radius: 8px !important;
+        padding: 12px !important;
+        margin-bottom: 15px !important;
+        break-inside: avoid; /* Quan trọng: giữ thẻ không bị cắt giữa trang */
+        page-break-inside: avoid;
+        display: inline-block; /* Cho phép xếp thẻ cạnh nhau nếu đủ chỗ */
+        width: 48% !important; /* 2 cột mỗi bên 48% */
+        margin-right: 2%;
+        vertical-align: top;
+        box-sizing: border-box;
     }
 
-    /* Xử lý hình ảnh */
+    /* Xử lý ảnh trong thẻ */
     img {
-        max-height: 120px !important;
+        max-height: 100px !important;
+        width: 100% !important;
         object-fit: cover !important;
+        margin-bottom: 8px;
+    }
+
+    /* Đảm bảo không để khoảng trống lớn thừa thãi */
+    div, section {
+        orphans: 3;
+        widows: 3;
     }
 }
