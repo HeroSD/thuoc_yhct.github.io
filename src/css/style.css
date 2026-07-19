@@ -40,3 +40,18 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* Tránh bị zoom trên iOS khi focus vào ô input */
+input, textarea {
+    font-size: 16px !important;
+}
+
+/* Đảm bảo giao diện card hiển thị tốt trên mọi màn hình */
+#cards-container {
+    transition: all 0.3s ease;
+}
+
+/* Đảm bảo modal zoom không bị trôi trên di động */
+#image-zoom-modal {
+    touch-action: none;
+}
