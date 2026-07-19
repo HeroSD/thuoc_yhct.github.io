@@ -288,14 +288,24 @@ function renderCards() {
 
 // 10. THIẾT LẬP CÁC SỰ KIỆN TƯƠNG TÁC
 function setupEventListeners() {
-    // Sự kiện tìm kiếm (debounce)
+    const searchForm = document.getElementById("search-form");
+
+    // Xử lý khi nhấn Enter
+    searchForm.addEventListener("submit", (e) => {
+        e.preventDefault(); 
+        searchQuery = searchInput.value;
+        renderCards();
+        searchInput.blur(); 
+    });
+
+    // Sự kiện nhập liệu
     let searchTimeout;
     searchInput.addEventListener("input", (e) => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
             searchQuery = e.target.value;
             renderCards();
-        }, 150);
+        }, 300);
     });
 
     // Reset bộ lọc
@@ -326,10 +336,10 @@ function setupEventListeners() {
         renderCards();
     });
 
-    // Bắt sự kiện bàn phím tắt đóng Zoom (Nút ESC)
+    // Bắt sự kiện bàn phím tắt đóng Zoom
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
             closeZoom();
         }
     });
-}
+} // <--- DẤU NGOẶC NÀY CẦN PHẢI NẰM Ở CUỐI CÙNG
