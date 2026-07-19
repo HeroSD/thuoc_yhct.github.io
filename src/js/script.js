@@ -25,7 +25,7 @@ const zoomTitle = document.getElementById("zoom-title");
 window.addEventListener("DOMContentLoaded", () => {
     if (typeof herbsData !== "undefined" && typeof categories !== "undefined") {
         renderCategories();
-        renderCards();
+        renderCards(false); // Mặc định không cuộn khi tải trang
         setupEventListeners();
         counterTotal.innerText = herbsData.length;
     } else {
@@ -58,7 +58,7 @@ function renderCategories() {
             const targetCat = categories.find(c => c.id === currentCategory);
             activeCategoryName.innerText = targetCat ? targetCat.name : "Không rõ";
             renderCategories();
-            renderCards();
+            renderCards(true); // Cuộn khi chọn danh mục
         });
     });
 }
@@ -74,7 +74,7 @@ function getTempColors(temp) {
     }
 }
 
-// 7. CHỨC NĂNG ĐỌC (SPEECH SYNTHESIS)
+// 7. CHỨC NĂNG ĐỌC
 function speakHerb(name, part, property, meridians, use) {
     window.speechSynthesis.cancel();
     const textToSpeak = `Vị thuốc: ${name}. Bộ phận dùng: ${part}. Tính vị: ${property}. Quy kinh: ${meridians}. Công dụng: ${use}`;
@@ -108,7 +108,7 @@ function removeAccents(str) {
 }
 
 // 9. RENDERING CARDS
-function renderCards() {
+function renderCards(shouldScroll = false) {
     let filtered = herbsData;
     
     if (currentCategory !== "all") {
@@ -133,7 +133,6 @@ function renderCards() {
         emptyState.classList.remove("hidden");
         return;
     }
-    emptyState.classList.remove("hidden");
     emptyState.classList.add("hidden");
 
     cardsContainer.innerHTML = filtered.map(herb => {
@@ -166,33 +165,35 @@ function renderCards() {
                 </div>
             `;
         } else {
-            return `<div class="flashcard-container h-80">... (Mã Flashcard của bạn) ...</div>`;
+            return `<div class="flashcard-container h-80">... (Flashcard Content) ...</div>`;
         }
     }).join('');
 
-    // Tự động cuộn đến danh sách khi có kết quả tìm kiếm
-    if (searchQuery.trim() !== "") {
+    // Chỉ cuộn khi tham số shouldScroll là true
+    if (shouldScroll) {
         cardsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
-// 10. THIẾT LẬP CÁC SỰ KIỆN TƯƠNG TÁC
+// 10. THIẾT LẬP CÁC SỰ KIỆN
 function setupEventListeners() {
     const searchForm = document.getElementById("search-form");
 
+    // Chỉ cuộn khi nhấn Enter (submit)
     searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
         searchQuery = searchInput.value;
-        renderCards();
+        renderCards(true); 
         searchInput.blur();
     });
 
+    // Không cuộn khi đang gõ phím
     let searchTimeout;
     searchInput.addEventListener("input", (e) => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
             searchQuery = e.target.value;
-            renderCards();
+            renderCards(false); 
         }, 300);
     });
 
@@ -202,16 +203,9 @@ function setupEventListeners() {
         searchInput.value = "";
         activeCategoryName.innerText = "Tất cả vị thuốc";
         renderCategories();
-        renderCards();
+        renderCards(false);
     });
 
-    btnViewGrid.addEventListener("click", () => {
-        viewMode = "grid";
-        renderCards();
-    });
-
-    btnViewFlashcard.addEventListener("click", () => {
-        viewMode = "flashcard";
-        renderCards();
-    });
+    btnViewGrid.addEventListener("click", () => { viewMode = "grid"; renderCards(false); });
+    btnViewFlashcard.addEventListener("click", () => { viewMode = "flashcard"; renderCards(false); });
 }
